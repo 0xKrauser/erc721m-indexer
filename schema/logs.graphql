@@ -8,17 +8,6 @@
 #
 # SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
 
-type ApprovedCreatorUpdateLog {
-  id: ID! # chainid + txHash + logIndex
-  transactionHash: String!
-  from: Wallet!
-  launchpad: Launchpad!
-  user: Wallet!
-  state: Boolean!
-  blockNumber: Int!
-  blockTimestamp: Int!
-}
-
 type RoyaltiesUpdateLog {
   id: ID! # chainid + transactionHash + logIndex
   chainid: Int!

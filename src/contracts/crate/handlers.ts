@@ -10,10 +10,10 @@
  * SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
  */
 
-import { Crate721M } from "generated"
+import { Crate } from "generated"
 
-import { contractCreatedHandler } from "./contractCreated"
 import { alignmentUpdateHandler } from "./alignmentUpdate"
+import { contractCreatedHandler } from "./contractCreated"
 import { listMintedHandler } from "./listMinted"
 import { mintListDeletedHandler } from "./mintListDeleted"
 import { mintListUpdateHandler } from "./mintListUpdate"
@@ -27,34 +27,34 @@ import { supplyUpdateHandler } from "./supplyUpdate"
 import { transferHandler } from "./transfer"
 import { unpausedHandler } from "./unpaused"
 
-Crate721M.ContractCreated.handler(({ context, event }) => contractCreatedHandler({ context, event }))
+Crate.ContractCreated.handler(({ context, event }) => contractCreatedHandler({ context, event }))
 
-Crate721M.SupplyUpdate.handler(({ context, event }) => supplyUpdateHandler({ context, event }))
+Crate.SupplyUpdate.handler(({ context, event }) => supplyUpdateHandler({ context, event }))
 
-Crate721M.PriceUpdate.handler(({ context, event }) => priceUpdateHandler({ context, event }))
+Crate.PriceUpdate.handler(({ context, event }) => priceUpdateHandler({ context, event }))
 
-Crate721M.RoyaltiesUpdate.handler(({ context, event }) => royaltiesUpdateHandler({ context, event }))
+Crate.RoyaltiesUpdate.handler(({ context, event }) => royaltiesUpdateHandler({ context, event }))
 
-Crate721M.OwnershipTransferred.handler(({ context, event }) =>
+Crate.OwnershipTransferred.handler(({ context, event }) =>
   ownershipTransferredHandler({ context, event }),
 )
 
-Crate721M.Transfer.handler(({ context, event }) => transferHandler({ context, event }))
+Crate.Transfer.handler(({ context, event }) => transferHandler({ context, event }))
 
-Crate721M.Paused.handler(({ context, event }) => pausedHandler({ context, event }))
+Crate.Paused.handler(({ context, event }) => pausedHandler({ context, event }))
 
-Crate721M.Unpaused.handler(({ context, event }) => unpausedHandler({ context, event }))
+Crate.Unpaused.handler(({ context, event }) => unpausedHandler({ context, event }))
 
-Crate721M.MintListUpdate.handler(({ context, event }) => mintListUpdateHandler({ context, event }))
+Crate.MintListUpdate.handler(({ context, event }) => mintListUpdateHandler({ context, event }))
 
-Crate721M.MintListDeleted.handler(({ context, event }) => mintListDeletedHandler({ context, event }))
+Crate.MintListDeleted.handler(({ context, event }) => mintListDeletedHandler({ context, event }))
 
-Crate721M.ListMinted.handler(({ context, event }) => listMintedHandler({ context, event }))
+Crate.ListMinted.handler(({ context, event }) => listMintedHandler({ context, event }))
 
-Crate721M.ReferralFeeUpdate.handler(({ context, event }) =>
+Crate.ReferralFeeUpdate.handler(({ context, event }) =>
   referralFeesUpdateHandler({ context, event }),
 )
 
-Crate721M.AlignmentUpdate.handler(({ context, event }) => alignmentUpdateHandler({ context, event }))
+Crate.AlignmentUpdate.handler(({ context, event }) => alignmentUpdateHandler({ context, event }))
 
-Crate721M.Referral.handler(({ context, event }) => referralHandler({ context, event }))
+Crate.Referral.handler(({ context, event }) => referralHandler({ context, event }))

@@ -36,15 +36,9 @@ type Collection @entity {
   maxSupply: BigInt
   erc2981: ERC2981Info
   tokens: [Token!]! @derivedFrom(field: "collection")
-  launchpad: Launchpad
   # policy info
-  nftPolicy: NftPolicy
-  feeRecipients: [String!]!
-  fees: [BigInt!]!
   allocationPc: [BigInt!]!
   referralFeePc: BigInt!
-  treasury: Treasury
-  splitter: Splitter
   reservedSupply: BigInt!
   lists: [List!]! @derivedFrom(field: "collection")
   updatedBlockNumber: Int!

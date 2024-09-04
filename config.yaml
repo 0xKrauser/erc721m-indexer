@@ -15,17 +15,17 @@ field_selection:
     - "transactionIndex"
     - "input"
 networks:
-  - id: 111555111
+  - id: 11155111
     start_block: 6631287
     end_block: null
     contracts:
       - name: Factory
         address: "0x6e1df30ff7d9d43f4068af4679239cd41d7e9c02"
-        handler: ./src/contracts/launchpad-0.0.2/handlers.ts
+        handler: ./src/contracts/factory/handlers.ts
         abi_file_path: ./abi/factory.json
         events:
           - event: Crate721MDeployed
-      - name: Crate721M
+      - name: Crate
         handler: ./src/contracts/crate/handlers.ts
         abi_file_path: ./abi/erc721m.json
         events:

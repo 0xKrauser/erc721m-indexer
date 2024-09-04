@@ -38,15 +38,9 @@ type Collection @entity {
   maxSupply: BigInt
   erc2981: ERC2981Info
   tokens: [Token!]! @derivedFrom(field: "collection")
-  launchpad: Launchpad
   # policy info
-  nftPolicy: NftPolicy
-  feeRecipients: [String!]!
-  fees: [BigInt!]!
   allocationPc: [BigInt!]!
   referralFeePc: BigInt!
-  treasury: Treasury
-  splitter: Splitter
   reservedSupply: BigInt!
   lists: [List!]! @derivedFrom(field: "collection")
   updatedBlockNumber: Int!
@@ -145,117 +139,6 @@ type ReferralLog @entity {
   updatedBlockNumber: Int!
   updatedTimestamp: Int!
 }
-type Launchpad {
-  id: ID! # chainid + srcAddress
-  contract: Contract!
-  # defaults
-  nftPolicies: [NftPolicy!]! @derivedFrom(field: "launchpad")
-  treasuryPolicies: [TreasuryPolicy!]! @derivedFrom(field: "launchpad")
-  splitterPolicies: [SplitterPolicy!]! @derivedFrom(field: "launchpad")
-  # aggregates
-  collectionsCreatedCount: Int!
-  treasuriesCreatedCount: Int!
-  splittersCreatedCount: Int!
-  collections: [Collection!]! @derivedFrom(field: "launchpad")
-  treasuries: [Treasury!]! @derivedFrom(field: "launchpad")
-  splitters: [Splitter!]! @derivedFrom(field: "launchpad")
-  approvedCreators: [String!]!
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-
-type Treasury @entity {
-  id: ID! # chainid + srcAddress
-  contract: Contract!
-  # relations
-  launchpad: Launchpad!
-  # treasury info
-  treasuryPolicy: TreasuryPolicy!
-  # timestamps
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-
-type Splitter @entity {
-  id: ID! # chainid + srcAddress
-  contract: Contract!
-  # relations
-  launchpad: Launchpad!
-  # splitter info
-  splitterPolicy: SplitterPolicy!
-  # timestamps
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-
-type NftPolicy @entity {
-  id: ID! # chainid + srcAddress + policyId
-  policyId: BigInt!
-  # relations
-  launchpad: Launchpad!
-  # policy info
-  masterCopy: String!
-  merkleRoot: String!
-  feeRecipients: [String!]!
-  feeRanges: [[BigInt!]!]!
-  royaltyRange: [BigInt!]!
-  paused: Boolean!
-  # timestamps
-  createdBlockNumber: Int!
-  createdTimestamp: Int!
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-
-type TreasuryPolicy @entity {
-  id: ID! # chainid + srcAddress + policyId
-  policyId: BigInt!
-  # relations
-  launchpad: Launchpad!
-  # policy info
-  masterCopy: String!
-  merkleRoot: String!
-  feeRecipients: [String!]!
-  feeRanges: [[BigInt!]!]!
-  royaltyRange: [BigInt!]!
-  interestRateRange: [BigInt!]!
-  termLimitRange: [BigInt!]!
-  paused: Boolean!
-  # timestamps
-  createdBlockNumber: Int!
-  createdTimestamp: Int!
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-
-type SplitterPolicy @entity {
-  id: ID! # chainid + srcAddress + policyId
-  policyId: BigInt!
-  # relations
-  launchpad: Launchpad!
-  # policy info
-  masterCopy: String!
-  merkleRoot: String!
-  feeRecipients: [String!]!
-  feeRanges: [[BigInt!]!]!
-  paused: Boolean!
-  # timestamps
-  createdBlockNumber: Int!
-  createdTimestamp: Int!
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-type ApprovedCreatorUpdateLog {
-  id: ID! # chainid + txHash + logIndex
-  transactionHash: String!
-  from: Wallet!
-  launchpad: Launchpad!
-  user: Wallet!
-  state: Boolean!
-  blockNumber: Int!
-  blockTimestamp: Int!
-}
-
 type RoyaltiesUpdateLog {
   id: ID! # chainid + transactionHash + logIndex
   chainid: Int!
@@ -272,81 +155,6 @@ type RoyaltiesUpdateLog {
   # timestamps
   blockNumber: Int!
   blockTimestamp: Int!
-}
-enum ItemType {
-  NATIVE
-  ERC20
-  ERC721
-  ERC1155
-  ERC721_WITH_CRITERIA
-  ERC1155_WITH_CRITERIA
-}
-
-type OrderFulfilledLog {
-  id: ID! # chainid + txHash + logIndex
-  transactionHash: String!
-  chainId: Int!
-  logIndex: Int!
-  # event data
-  sender: Wallet!
-  orderHash: String!
-  offerer: Wallet!
-  recipient: Wallet!
-  zone: String!
-  offer: [SpentItem!]! @derivedFrom(field: "order")
-  consideration: [ReceivedItem!]! @derivedFrom(field: "order")
-  platform: String!
-  # timestamps
-  blockNumber: Int!
-  blockTimestamp: Int!
-}
-
-type SpentItem {
-  id: ID!
-  order: OrderFulfilledLog!
-  itemType: ItemType
-  token: String!
-  identifier: BigInt!
-  amount: BigInt!
-}
-
-type ReceivedItem {
-  id: ID!
-  order: OrderFulfilledLog!
-  itemType: ItemType
-  token: String!
-  identifier: BigInt!
-  amount: BigInt!
-  recipient: String!
-}
-
-type Counter @entity {
-  id: ID! # chainid + srcAddress + wallet
-  chainId: Int!
-  seaport: String! # srcAddress
-  # event data
-  wallet: Wallet!
-  counter: BigInt!
-  # timestamps
-  createdBlockNumber: Int!
-  createdTimestamp: Int!
-  updatedBlockNumber: Int!
-  updatedTimestamp: Int!
-}
-type NftSales {
-  id: ID! # chainid + transaction_hash + log_index
-  chainId: Int!
-  transactionHash: String!
-  logIndex: Int!
-  orderHash: String!
-  contract: Contract!
-  token: Token!
-  saleAmount: BigInt!
-  saleToken: String!
-  offerer: Wallet!
-  recipient: Wallet!
-  createdBlockNumber: Int!
-  createdTimestamp: Int!
 }
 type Wallet @entity {
   id: ID!

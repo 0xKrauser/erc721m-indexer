@@ -10,7 +10,12 @@
  * SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
  */
 
-import type { Collection, Crate_FeeUpdate_eventArgs, eventLog, handlerContext } from "generated"
+import type {
+  Collection,
+  Crate_AlignmentUpdate_eventArgs,
+  eventLog,
+  handlerContext,
+} from "generated"
 import type { Address } from "viem"
 
 import { getOrCreateCollection } from "../../actions/getOrCreateCollection"
@@ -20,10 +25,10 @@ export async function alignmentUpdateHandler({
   event,
 }: {
   context: handlerContext
-  event: eventLog<Crate_FeeUpdate_eventArgs>
+  event: eventLog<Crate_AlignmentUpdate_eventArgs>
 }): Promise<void> {
   const { block, params, srcAddress } = event
-  const { feeRecipients_, fees_ } = params
+  const { max_, min_ } = params
 
   const { data: collection } = await getOrCreateCollection({
     event,
@@ -33,8 +38,7 @@ export async function alignmentUpdateHandler({
 
   const updatedCollection: Collection = {
     ...collection,
-    feeRecipients: feeRecipients_,
-    fees: fees_,
+    allocationPc: [min_, max_],
     updatedBlockNumber: block.number,
     updatedTimestamp: block.timestamp,
   }

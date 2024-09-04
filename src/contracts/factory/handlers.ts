@@ -12,12 +12,9 @@
 
 import { Factory } from "generated"
 
-import { collectionCreatedHandler } from "./crate721mDeployed"
-
-
 Factory.Crate721MDeployed.contractRegister(({ context, event }) => {
-  const { collection_ } = params
+  const { params } = event
+  const { contract_ } = params
 
-  context.addCrate(collection_)
+  context.addCrate(contract_)
 })
-
