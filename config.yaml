@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: NOASSERTION
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+#
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: erc721m-indexer
+field_selection:
+  transaction_fields:
+    - "hash"
+    - "from"
+    - "transactionIndex"
+    - "input"
+networks:
+  - id: 111555111
+    start_block: 6631287
+    end_block: null
+    contracts:
+      - name: Factory
+        address: "0x6e1df30ff7d9d43f4068af4679239cd41d7e9c02"
+        handler: ./src/contracts/launchpad-0.0.2/handlers.ts
+        abi_file_path: ./abi/factory.json
+        events:
+          - event: Crate721MDeployed
+      - name: Crate721M
+        handler: ./src/contracts/crate/handlers.ts
+        abi_file_path: ./abi/erc721m.json
+        events:
+          - event: ContractCreated
+          - event: SupplyUpdate
+          - event: PriceUpdate
+          - event: RoyaltiesUpdate
+          - event: OwnershipTransferred
+          - event: Transfer
+          - event: Paused
+          - event: Unpaused
+          - event: ListMinted
+          - event: MintListUpdate
+          - event: MintListDeleted
+          - event: ReferralFeeUpdate
+          - event: Referral
+          - event: AlignmentUpdate

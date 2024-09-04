@@ -1,0 +1,65 @@
+# SPDX-License-Identifier: LicenseRef-AllRightsReserved
+#
+# License-Url: https://github.com/0xkrauser/erc721m-indexer/LICENSES/LicenseRef-AllRightsReserved.txt
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+#
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+type List @entity {
+  id: ID! # chainid + srcAddress + listId
+  listId: BigInt!
+  # relations
+  collection: Collection!
+  # data
+  merkleRoot: String!
+  totalSupply: BigInt!
+  maxSupply: BigInt!
+  userSupply: BigInt!
+  unit: BigInt!
+  price: BigInt!
+  start: BigInt!
+  end: BigInt!
+  reserved: Boolean!
+  paused: Boolean!
+  deleted: Boolean!
+  claims: [ListClaimed!]! @derivedFrom(field: "list")
+  # timestamps
+  createdBlockNumber: Int!
+  createdTimestamp: Int!
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}
+
+# keeps track of how many tokens the user has claimed from a list or from a public sale
+type ListClaimed {
+  id: ID! # chainid + srcAddress + listId + wallet
+  # relations
+  wallet: Wallet!
+  list: List!
+  # data
+  amount: BigInt!
+  # timestamps
+  createdBlockNumber: Int!
+  createdTimestamp: Int!
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}
+
+type ReferralLog @entity {
+  id: ID! # chainid + transactionHash + logIndex
+  transactionHash: String!
+  logIndex: Int!
+  # relations
+  referral: CollectionActivity!
+  referred: CollectionActivity!
+  # data
+  amount: BigInt!
+  # timestamps
+  createdBlockNumber: Int!
+  createdTimestamp: Int!
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}

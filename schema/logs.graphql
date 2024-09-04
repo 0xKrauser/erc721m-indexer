@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: LicenseRef-AllRightsReserved
+#
+# License-Url: https://github.com/0xkrauser/erc721m-indexer/LICENSES/LicenseRef-AllRightsReserved.txt
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+#
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+type ApprovedCreatorUpdateLog {
+  id: ID! # chainid + txHash + logIndex
+  transactionHash: String!
+  from: Wallet!
+  launchpad: Launchpad!
+  user: Wallet!
+  state: Boolean!
+  blockNumber: Int!
+  blockTimestamp: Int!
+}
+
+type RoyaltiesUpdateLog {
+  id: ID! # chainid + transactionHash + logIndex
+  chainid: Int!
+  transactionHash: String!
+  logIndex: Int!
+  # collection or token
+  collection: Collection
+  token: Token
+  # event data
+  sender: Wallet!
+  tokenId: BigInt!
+  royaltyPc: BigInt
+  royaltyReceiver: Wallet!
+  # timestamps
+  blockNumber: Int!
+  blockTimestamp: Int!
+}

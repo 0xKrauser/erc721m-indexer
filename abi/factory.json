@@ -1,0 +1,63 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      { "name": "alignedNft_", "type": "address", "internalType": "address" },
+      { "name": "masterCopy_", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "alignedNft",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "createCollection",
+    "inputs": [
+      { "name": "name_", "type": "string", "internalType": "string" },
+      { "name": "symbol_", "type": "string", "internalType": "string" },
+      { "name": "maxSupply_", "type": "uint32", "internalType": "uint32" },
+      { "name": "royalty_", "type": "uint16", "internalType": "uint16" },
+      { "name": "allocation_", "type": "uint16", "internalType": "uint16" },
+      { "name": "price_", "type": "uint256", "internalType": "uint256" },
+      { "name": "vaultId_", "type": "uint96", "internalType": "uint96" },
+      { "name": "salt_", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "vaultSalt_", "type": "bytes32", "internalType": "bytes32" }
+    ],
+    "outputs": [
+      { "name": "collection_", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "masterCopy",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "Crate721MDeployed",
+    "inputs": [
+      {
+        "name": "contract_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "creator_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "NotAligned", "inputs": [] }
+]

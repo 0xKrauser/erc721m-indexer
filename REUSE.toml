@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: CC0-1.0
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+# 
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+version = 1
+SPDX-PackageName = "erc721m-indexer"
+SPDX-PackageSupplier = "Common <hello@co.xyz>"
+SPDX-PackageDownloadLocation = "https://github.com/0xkrauser/erc721m-indexer"
+
+[[annotations]]
+path = [
+    "abi/**/*.json",
+    ".vscode/extensions.json",
+    ".vscode/settings.json",
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "tsconfig.json",
+    "README.md",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2024 Johannes Krauser III <krauser@co.xyz>"
+SPDX-License-Identifier = "NOASSERTION"
+
+[[annotations]]
+path = ["abi/seaport-1.6.json"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright (c) 2023 Ozone Networks, Inc."
+SPDX-License-Identifier = "MIT"

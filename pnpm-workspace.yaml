@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: NOASSERTION
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+#
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+packages:
+  - ./*

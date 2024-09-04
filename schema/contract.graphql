@@ -1,0 +1,90 @@
+# SPDX-License-Identifier: LicenseRef-AllRightsReserved
+#
+# License-Url: https://github.com/0xkrauser/erc721m-indexer/LICENSES/LicenseRef-AllRightsReserved.txt
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+#
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+type Contract @entity {
+  id: ID! # chainid + srcAddress
+  chainId: Int!
+  address: String!
+  # contract info
+  wallet: Wallet! # contract address and other info
+  collection: Collection # only for contracts that integrate Collection events, undefined otherwise
+  creator: Wallet # only for contracts that integrate Ownable events, undefined otherwise
+  owner: Wallet # only for contracts that integrate Ownable events, undefined otherwise
+  paused: Boolean # only for contracts that integrate Pausable events, undefined otherwise
+  # timestamps
+  createdBlockNumber: Int
+  createdTimestamp: Int
+  encounteredBlockNumber: Int
+  encounteredTimestamp: Int
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}
+
+type Collection @entity {
+  id: ID! # chainid + srcAddress
+  name: String
+  symbol: String
+  contract: Contract!
+  totalSupply: BigInt!
+  maxSupply: BigInt
+  erc2981: ERC2981Info
+  tokens: [Token!]! @derivedFrom(field: "collection")
+  launchpad: Launchpad
+  # policy info
+  nftPolicy: NftPolicy
+  feeRecipients: [String!]!
+  fees: [BigInt!]!
+  allocationPc: [BigInt!]!
+  referralFeePc: BigInt!
+  treasury: Treasury
+  splitter: Splitter
+  reservedSupply: BigInt!
+  lists: [List!]! @derivedFrom(field: "collection")
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}
+
+type ERC2981Info {
+  id: ID! # chainid + srcAddress + tokenId | tokenid of 0 for collection
+  royaltyPc: BigInt
+  royaltyReceiver: Wallet!
+  # timestamps
+  createdBlockNumber: Int!
+  createdTimestamp: Int!
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}
+
+type Token @entity {
+  id: ID! # chainid + srcAddress + tokenId
+  tokenId: BigInt!
+  collection: Collection!
+  ownerAddress: String
+  minterAddress: String
+  minter: Wallet # only for ERC721-like
+  owner: Wallet # only for ERC721-like
+  owners: [TokenAmount!]! @derivedFrom(field: "token") # amount for ERC1155 tokens
+  erc2981: ERC2981Info
+  createdBlockNumber: Int!
+  createdTimestamp: Int!
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}
+
+type TokenAmount {
+  id: ID! # chainid + srcAddress + tokenId + wallet
+  token: Token!
+  wallet: Wallet!
+  amount: BigInt!
+  createdBlockNumber: Int!
+  createdTimestamp: Int!
+  updatedBlockNumber: Int!
+  updatedTimestamp: Int!
+}

@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: LicenseRef-AllRightsReserved
+#
+# License-Url: https://github.com/0xkrauser/erc721m-indexer/LICENSES/LicenseRef-AllRightsReserved.txt
+#
+# SPDX-FileType: SOURCE
+#
+# SPDX-FileCopyrightText: 2024 Johannes Krauser III <krauser@co.xyz>
+#
+# SPDX-FileContributor: Johannes Krauser III <krauser@co.xyz>
+
+type Wallet @entity {
+  id: ID!
+  contract: Contract
+  collectionsCreatedCount: Int!
+  collectionsOwnedCount: Int!
+  treasuriesCreatedCount: Int!
+  tokensOwnedCount: Int!
+  tokensMintedCount: Int!
+  tokensOwned: [Token!]! @derivedFrom(field: "owner")
+  tokensMinted: [Token!]! @derivedFrom(field: "minter")
+  itemsSold: BigInt!
+  itemsBought: BigInt!
+  encounteredTimestamp: Int!
+  updatedTimestamp: Int!
+}
+
+type CollectionActivity {
+  id: ID! # chainid + srcAddress + wallet
+  collection: Collection!
+  wallet: Wallet!
+  # minting activity
+  spent: BigInt!
+  mintCount: BigInt!
+  # referral activity
+  referralFeesEarned: BigInt!
+  referralCount: BigInt! # total number of times you referred a transaction
+  referrals: [ReferralLog!]! @derivedFrom(field: "referral")
+  referredCount: BigInt! # total number of times you were referred in a transaction
+  referred: [ReferralLog!]! @derivedFrom(field: "referred")
+  referralAmount: BigInt! # total amount of tokens minted with your referral
+  referredAmount: BigInt! # total amount of tokens you minted with a referral
+  # marketplace activity
+  bought: BigInt!
+  sold: BigInt!
+  # timestamps
+  createdTimestamp: Int!
+  createdBlockNumber: Int!
+  updatedTimestamp: Int!
+  updatedBlockNumber: Int!
+}
